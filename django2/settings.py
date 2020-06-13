@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'core',
     'bootstrap4',
     'stdimage',
+    'channels',
+    'chat',
 ]
 
 MIDDLEWARE = [
@@ -132,7 +134,15 @@ STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
 MEDIA_URL = 'media/'
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 
-
+ASGI_APPLICATION = 'realtime.routing.application'
+CHANNEL_LAYERS = {
+    'default':{
+        'BACKEND':'channels_redis.core.RedisChannelLayer',
+        'CONFIG':{
+            'hosts':[{'127.0.0.1',6379}]
+        },
+    },
+}
 #email
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 """
